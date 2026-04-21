@@ -1,0 +1,11 @@
+echo "Test 1: Basic echo"
+echo hello world
+echo "Test 2: echo with -n"
+echo -n no newline test
+echo ""
+echo "Test 3: pwd"
+pwd
+echo "Test 4: env (first 3 lines)"
+env | head -3
+echo "Test 5: exit"
+exit 0
