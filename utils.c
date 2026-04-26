@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: srayees <srayees@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/24 17:41:23 by srayees           #+#    #+#             */
+/*   Updated: 2026/04/24 17:41:24 by srayees          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishel.h"
 
 char	*ft_strdup(const char *s)
@@ -111,8 +123,8 @@ int	ft_strcmp(const char *s1, const char *s2)
 
 int	ft_isspace(int c)
 {
-	return (c == ' ' || c == '\t' || c == '\n' || 
-		c == '\r' || c == '\f' || c == '\v');
+	return (c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\f'
+		|| c == '\v');
 }
 
 char	*expand_variable(const char *var_name, t_context *ctx)

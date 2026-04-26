@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: srayees <srayees@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/24 17:40:59 by srayees           #+#    #+#             */
+/*   Updated: 2026/04/24 17:41:00 by srayees          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishel.h"
 
 static t_token	*new_token(t_token_type type, const char *value)
@@ -36,8 +48,8 @@ static char	*extract_word(const char *input, int *i)
 	char	quote;
 
 	start = *i;
-	while (input[*i] && !ft_isspace(input[*i]) && input[*i] != '|' &&
-		input[*i] != '<' && input[*i] != '>')
+	while (input[*i] && !ft_isspace(input[*i]) && input[*i] != '|'
+		&& input[*i] != '<' && input[*i] != '>')
 	{
 		if (input[*i] == '\'' || input[*i] == '"')
 		{
@@ -168,6 +180,8 @@ t_pipeline	*parse_tokens(t_token *tokens)
 	t_cmd		*cmd;
 	t_token		*current;
 	char		*clean;
+	t_cmd		*t;
+	t_redir		*redir;
 
 	pipeline = malloc(sizeof(t_pipeline));
 	if (!pipeline)
@@ -202,7 +216,7 @@ t_pipeline	*parse_tokens(t_token *tokens)
 					pipeline->commands = cmd;
 				else
 				{
-					t_cmd *t = pipeline->commands;
+					t = pipeline->commands;
 					while (t->next)
 						t = t->next;
 					t->next = cmd;
@@ -212,14 +226,14 @@ t_pipeline	*parse_tokens(t_token *tokens)
 			cmd->args[cmd->arg_count++] = clean;
 			current = current->next;
 		}
-		else if (current->type == TOKEN_REDIR_IN || 
-			current->type == TOKEN_REDIR_OUT ||
-			current->type == TOKEN_REDIR_APPEND ||
-			current->type == TOKEN_REDIR_HEREDOC)
+		else if (current->type == TOKEN_REDIR_IN
+			|| current->type == TOKEN_REDIR_OUT
+			|| current->type == TOKEN_REDIR_APPEND
+			|| current->type == TOKEN_REDIR_HEREDOC)
 		{
 			if (current->next && current->next->type == TOKEN_WORD)
 			{
-				t_redir *redir = malloc(sizeof(t_redir));
+				redir = malloc(sizeof(t_redir));
 				if (!redir)
 					return (NULL);
 				redir->type = current->type;

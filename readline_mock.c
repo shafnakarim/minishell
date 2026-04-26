@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   readline_mock.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: srayees <srayees@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/24 17:41:09 by srayees           #+#    #+#             */
+/*   Updated: 2026/04/24 17:41:10 by srayees          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishel.h"
 
-static int		hist_size = 0;
-static char		**history = NULL;
-static int		hist_capacity = 100;
+static int	hist_size = 0;
+static char	**history = NULL;
+static int	hist_capacity = 100;
 
 char	*readline(const char *prompt)
 {
@@ -34,6 +46,9 @@ char	*readline(const char *prompt)
 
 void	add_history(char *line)
 {
+	char	**temp;
+	int		i;
+
 	if (!line || !*line)
 		return ;
 	if (!history)
@@ -44,11 +59,11 @@ void	add_history(char *line)
 	}
 	if (hist_size >= hist_capacity)
 	{
-		char **temp = malloc(sizeof(char *) * (hist_capacity + 50));
+		temp = malloc(sizeof(char *) * (hist_capacity + 50));
 		if (!temp)
 			return ;
 		hist_capacity += 50;
-		int i = 0;
+		i = 0;
 		while (i < hist_size)
 		{
 			temp[i] = history[i];
