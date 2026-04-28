@@ -6,7 +6,7 @@
 /*   By: srayees <srayees@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:47:55 by srayees           #+#    #+#             */
-/*   Updated: 2026/04/24 17:52:31 by srayees          ###   ########.fr       */
+/*   Updated: 2026/04/28 14:02:34 by srayees          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,4 +119,6 @@ void				free_split(char **split);
 int					ft_strcmp(const char *s1, const char *s2);
 char				*expand_variable(const char *var_name, t_context *ctx);
 int					ft_isspace(int c);
+void    			run_shell(t_context *ctx);
+void    			process_token_char(const char *input, int *i, t_token **head);
 #endif

@@ -1,27 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srayees <srayees@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/24 17:40:41 by srayees           #+#    #+#             */
-/*   Updated: 2026/04/24 17:40:42 by srayees          ###   ########.fr       */
+/*   Created: 2026/04/28 00:00:00 by srayees           #+#    #+#             */
+/*   Updated: 2026/04/28 00:00:00 by srayees          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishel.h"
 
-int	main(int argc, char **argv, char **envp)
+char	*get_env_value(const char *key, t_env *env)
 {
-	t_context	ctx;
+	t_env	*current;
 
-	(void)argc;
-	(void)argv;
-	ctx.env = init_env(envp);
-	ctx.last_exit_status = 0;
-	run_shell(&ctx);
-	free_env(ctx.env);
-	rl_clear_history();
-	return (ctx.last_exit_status);
+	current = env;
+	while (current)
+	{
+		if (ft_strcmp(current->key, key) == 0)
+			return (current->value);
+		current = current->next;
+	}
+	return (NULL);
+}
+
+void	free_env(t_env *env)
+{
+	t_env	*current;
+	t_env	*next;
+
+	current = env;
+	while (current)
+	{
+		next = current->next;
+		free(current->key);
+		free(current->value);
+		free(current);
+		current = next;
+	}
 }
