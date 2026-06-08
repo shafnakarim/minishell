@@ -1,12 +1,14 @@
 NAME = minishell
+
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I$(INCLUDE)
-LIBFT_DIR = libft
+
 INCLUDE = include
-READLINE_DIR = include/mac
+LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
-READLINE = $(READLINE_DIR)/libreadline.a
-HISTORY = $(READLINE_DIR)/libhistory.a
+
+# Libraries (system)
+LDFLAGS = -lreadline -lhistory -lncurses
 
 # Source directories
 LEXER_DIR = src/lexer
@@ -31,28 +33,28 @@ EXECUTOR_SRCS = $(EXECUTOR_DIR)/executor_main.c $(EXECUTOR_DIR)/heredoc.c \
 				$(EXECUTOR_DIR)/pipeline.c $(EXECUTOR_DIR)/pipeline_util.c
 
 BUILTINS_SRCS = $(BUILTINS_DIR)/ft_echo.c $(BUILTINS_DIR)/ft_cd.c $(BUILTINS_DIR)/ft_pwd.c \
-				 $(BUILTINS_DIR)/ft_unset.c $(BUILTINS_DIR)/ft_env.c \
-				$(BUILTINS_DIR)/ft_exit.c $(BUILTINS_DIR)/builtin_utils.c $(BUILTINS_DIR)/export2.c $(BUILTINS_DIR)/export.c
+				$(BUILTINS_DIR)/ft_unset.c $(BUILTINS_DIR)/ft_env.c \
+				$(BUILTINS_DIR)/ft_exit.c $(BUILTINS_DIR)/builtin_utils.c \
+				$(BUILTINS_DIR)/export.c $(BUILTINS_DIR)/export2.c
 
-UTILS_SRCS = $(UTILS_DIR)/utils.c $(UTILS_DIR)/signals.c\
-			$(UTILS_DIR)/env_hash.c $(UTILS_DIR)/env_manager.c $(UTILS_DIR)/expansion.c\
-			$(UTILS_DIR)/utils2.c $(UTILS_DIR)/env_utils.c $(UTILS_DIR)/expan_utils.c
+UTILS_SRCS = $(UTILS_DIR)/utils.c $(UTILS_DIR)/signals.c \
+			$(UTILS_DIR)/env_hash.c $(UTILS_DIR)/env_manager.c \
+			$(UTILS_DIR)/expansion.c $(UTILS_DIR)/utils2.c \
+			$(UTILS_DIR)/env_utils.c $(UTILS_DIR)/expan_utils.c
 
 ALL_SRCS = main.c $(LEXER_SRCS) $(PARSER_SRCS) $(EXECUTOR_SRCS) $(BUILTINS_SRCS) $(UTILS_SRCS)
 
 # Object files
 OBJS = $(ALL_SRCS:%.c=$(OBJ_DIR)/%.o)
 
+# Rules
 all: $(LIBFT) $(NAME)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS)  -lcurses $(HISTORY) $(READLINE) $(LIBFT) -o $(NAME)
-
-# $(NAME): $(OBJS)
-# 	$(CC) $(CFLAGS) $(OBJS) -lncurses -lreadline -lhistory $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LDFLAGS) -o $(NAME)
 
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
