@@ -10,18 +10,29 @@ static int	is_single_command(t_command *commands)
 	return (0);
 }
 
-static void	handle_single_builtin(t_command *commands, t_shell_state *state)
+static void handle_single_builtin(t_command *commands, t_shell_state *state)
 {
-	int	status;
+    int status;
+    int saved_stdout;
 
-	if (handle_redirections(commands) == -1)
-	{
-		set_exit_status_in_state(state, 1);
-		return ;
-	}
-	status = execute_builtin(commands, state);
-	dup2(STDIN_FILENO, STDOUT_FILENO);
-	set_exit_status_in_state(state, status);
+    saved_stdout = dup(STDOUT_FILENO);
+    if (saved_stdout == -1)
+        return ;
+
+    if (handle_redirections(commands) == -1)
+    {
+        set_exit_status_in_state(state, 1);
+        dup2(saved_stdout, STDOUT_FILENO);
+        close(saved_stdout);
+        return ;
+    }
+
+    status = execute_builtin(commands, state);
+
+    dup2(saved_stdout, STDOUT_FILENO);
+    close(saved_stdout);
+
+    set_exit_status_in_state(state, status);
 }
 
 static int	is_single_builtin_command(t_command *commands)
