@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srayees <srayees@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jaa-s <jaa-s@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 12:16:06 by srayees           #+#    #+#             */
-/*   Updated: 2026/06/06 12:16:08 by srayees          ###   ########.fr       */
+/*   Updated: 2026/07/02 15:34:12 by jaa-s            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,16 @@ void	increment_shell_level(t_shell_state *state)
 
 static int	is_only_whitespace(char *str)
 {
-    int	i;
+	int	i;
 
-    i = 0;
-    while (str[i])
-    {
-        if (str[i] != ' ' && str[i] != '\t' && str[i] != '\n' && str[i] != '\r')
-            return (0);
-        i++;
-    }
-    return (1);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ' && str[i] != '\t' && str[i] != '\n' && str[i] != '\r')
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 static void	run_shell_loop(t_shell_state *state)

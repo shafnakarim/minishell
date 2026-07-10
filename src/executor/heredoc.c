@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaa-s <jaa-s@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/16 09:56:38 by jaa-s             #+#    #+#             */
+/*   Updated: 2026/07/02 15:32:40 by jaa-s            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "executor.h"
 #include "utils.h"
@@ -45,7 +55,7 @@ static void	write_heredoc_content(int fd, char *delimiter)
 		if (!line)
 			break ;
 		if (ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0
-    	&& line[ft_strlen(delimiter)] == '\0')
+			&& line[ft_strlen(delimiter)] == '\0')
 		{
 			free(line);
 			break ;

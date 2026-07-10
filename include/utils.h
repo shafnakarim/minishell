@@ -6,7 +6,7 @@
 /*   By: srayees <srayees@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 15:41:14 by srayees           #+#    #+#             */
-/*   Updated: 2026/06/06 15:41:16 by srayees          ###   ########.fr       */
+/*   Updated: 2026/07/08 15:54:38 by srayees          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "minishell.h"
 
-/* Environment Hash Table Structures */
 typedef struct s_env_var
 {
 	char				*key;
@@ -29,7 +28,6 @@ typedef struct s_env_table
 	int					size;
 }						t_env_table;
 
-/* Environment Hash Table Functions */
 t_env_table				*init_env_table(void);
 int						env_set(t_env_table *table, const char *key,
 							const char *value);
@@ -39,7 +37,6 @@ void					free_env_table(t_env_table *table);
 t_env_table				*load_env_from_array(char **envp);
 char					**env_table_to_array(t_env_table *table);
 
-/* Shell State Environment Management */
 char					*get_env_value_from_state(t_shell_state *state,
 							const char *key);
 int						set_env_value_in_state(t_shell_state *state,
@@ -52,14 +49,11 @@ void					set_exit_status_in_state(t_shell_state *state,
 							int status);
 int						get_exit_status_from_state(t_shell_state *state);
 
-/* String Utilities */
 int						ft_str_is_numeric(char *str);
 
-/* Variable Expansion */
 char					*expand_variables(char *str, t_shell_state *state);
 char					*remove_quotes(const char *str);
 
-/* Prompt Functions */
 void					dig_prompt(void);
 void					fill_env_array(t_env_table *table, char **envp);
 unsigned int			hash_function(const char *key);

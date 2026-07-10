@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipeline_util.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: srayees <srayees@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/16 09:56:56 by jaa-s             #+#    #+#             */
+/*   Updated: 2026/07/08 15:50:26 by srayees          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "executor.h"
 #include "utils.h"
@@ -57,6 +67,8 @@ void	wait_for_all_children(t_shell_state *state)
 		{
 			if (WTERMSIG(status) == SIGINT)
 				ft_putstr_fd("\n", 1);
+			else if (WTERMSIG(status) == SIGQUIT)
+				ft_putendl_fd("Quit (core dumped)", STDERR_FILENO);
 			set_exit_status_in_state(state, 128 + WTERMSIG(status));
 		}
 	}

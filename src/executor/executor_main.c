@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executor_main.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaa-s <jaa-s@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/16 09:56:11 by jaa-s             #+#    #+#             */
+/*   Updated: 2026/07/02 15:32:58 by jaa-s            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "executor.h"
 #include "utils.h"
@@ -10,29 +20,25 @@ static int	is_single_command(t_command *commands)
 	return (0);
 }
 
-static void handle_single_builtin(t_command *commands, t_shell_state *state)
+static void	handle_single_builtin(t_command *commands, t_shell_state *state)
 {
-    int status;
-    int saved_stdout;
+	int	status;
+	int	saved_stdout;
 
-    saved_stdout = dup(STDOUT_FILENO);
-    if (saved_stdout == -1)
-        return ;
-
-    if (handle_redirections(commands) == -1)
-    {
-        set_exit_status_in_state(state, 1);
-        dup2(saved_stdout, STDOUT_FILENO);
-        close(saved_stdout);
-        return ;
-    }
-
-    status = execute_builtin(commands, state);
-
-    dup2(saved_stdout, STDOUT_FILENO);
-    close(saved_stdout);
-
-    set_exit_status_in_state(state, status);
+	saved_stdout = dup(STDOUT_FILENO);
+	if (saved_stdout == -1)
+		return ;
+	if (handle_redirections(commands) == -1)
+	{
+		set_exit_status_in_state(state, 1);
+		dup2(saved_stdout, STDOUT_FILENO);
+		close(saved_stdout);
+		return ;
+	}
+	status = execute_builtin(commands, state);
+	dup2(saved_stdout, STDOUT_FILENO);
+	close(saved_stdout);
+	set_exit_status_in_state(state, status);
 }
 
 static int	is_single_builtin_command(t_command *commands)

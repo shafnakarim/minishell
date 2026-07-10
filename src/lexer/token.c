@@ -6,29 +6,29 @@
 /*   By: srayees <srayees@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 12:12:32 by srayees           #+#    #+#             */
-/*   Updated: 2026/06/06 12:12:34 by srayees          ###   ########.fr       */
+/*   Updated: 2026/07/03 15:11:58 by srayees          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-t_token_type	get_special_token_type(char c, char next);
-
-t_token	*create_token(t_token_type type, char *value)
+static t_token_type	get_special_token_type(char c, char next)
 {
-	t_token	*token;
-
-	token = (t_token *)malloc(sizeof(t_token));
-	if (!token)
+	if (c == '|')
+		return (PIPE);
+	if (c == '<')
 	{
-		if (value)
-			free(value);
-		return (NULL);
+		if (next == '<')
+			return (REDIR_HEREDOC);
+		return (REDIR_IN);
 	}
-	token->type = type;
-	token->value = value;
-	token->next = NULL;
-	return (token);
+	if (c == '>')
+	{
+		if (next == '>')
+			return (REDIR_APPEND);
+		return (REDIR_OUT);
+	}
+	return (WORD);
 }
 
 void	add_token(t_tokenizer *tokens, t_token *new_token)

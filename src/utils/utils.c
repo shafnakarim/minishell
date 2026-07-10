@@ -6,7 +6,7 @@
 /*   By: srayees <srayees@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 12:15:46 by srayees           #+#    #+#             */
-/*   Updated: 2026/06/06 12:15:48 by srayees          ###   ########.fr       */
+/*   Updated: 2026/07/07 14:46:08 by srayees          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,21 @@
 int	ft_str_is_numeric(char *str)
 {
 	int	i;
-	int	digit;
 
-	i = 0;
-	digit = 0;
 	if (!str || str[0] == '\0')
+		return (0);
+	i = 0;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+	if (!str[i])
 		return (0);
 	while (str[i])
 	{
-		if (!ft_isdigit(str[i]) && str[0] != '-')
+		if (!ft_isdigit(str[i]))
 			return (0);
 		i++;
 	}
-	digit = ft_atoi(str);
-	if (digit == -1 && ft_strlen(str) > 4)
-		return (0);
-	return (digit % 256);
+	return (1);
 }
 
 void	fill_env_array(t_env_table *table, char **envp)

@@ -6,7 +6,7 @@
 /*   By: srayees <srayees@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 12:12:19 by srayees           #+#    #+#             */
-/*   Updated: 2026/06/06 12:28:21 by srayees          ###   ########.fr       */
+/*   Updated: 2026/07/03 15:10:13 by srayees          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,10 @@ int	is_special_char(char c)
 	return (c == '|' || c == '<' || c == '>');
 }
 
-int ft_isspace(char c)
+int	ft_isspace(char c)
 {
-    return (c == ' ' || c == '\t' || c == '\n'
-        || c == '\v' || c == '\f' || c == '\r');
-}
-
-t_token_type	get_special_token_type(char c, char next)
-{
-	if (c == '|')
-		return (PIPE);
-	if (c == '<')
-	{
-		if (next == '<')
-			return (REDIR_HEREDOC);
-		return (REDIR_IN);
-	}
-	if (c == '>')
-	{
-		if (next == '>')
-			return (REDIR_APPEND);
-		return (REDIR_OUT);
-	}
-	return (WORD);
+	return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'
+		|| c == '\r');
 }
 
 int	skip_whitespace(t_tokenizer *tokens)

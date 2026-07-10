@@ -7,10 +7,8 @@ INCLUDE = include
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-# Libraries (system)
 LDFLAGS = -lreadline -lhistory -lncurses
 
-# Source directories
 LEXER_DIR = src/lexer
 PARSER_DIR = src/parser
 EXECUTOR_DIR = src/executor
@@ -18,9 +16,8 @@ BUILTINS_DIR = src/builtins
 UTILS_DIR = src/utils
 OBJ_DIR = obj
 
-# Source files
 LEXER_SRCS = $(LEXER_DIR)/lexer.c $(LEXER_DIR)/lexer_init.c $(LEXER_DIR)/token.c \
-			$(LEXER_DIR)/token_utils.c $(LEXER_DIR)/quote_handler.c
+			$(LEXER_DIR)/token_create.c $(LEXER_DIR)/token_utils.c $(LEXER_DIR)/quote_handler.c
 
 PARSER_SRCS = $(PARSER_DIR)/parser_main.c $(PARSER_DIR)/parser_commands.c \
 			$(PARSER_DIR)/parser_redirections.c $(PARSER_DIR)/parser_pipeline.c \
@@ -44,10 +41,8 @@ UTILS_SRCS = $(UTILS_DIR)/utils.c $(UTILS_DIR)/signals.c \
 
 ALL_SRCS = main.c $(LEXER_SRCS) $(PARSER_SRCS) $(EXECUTOR_SRCS) $(BUILTINS_SRCS) $(UTILS_SRCS)
 
-# Object files
 OBJS = $(ALL_SRCS:%.c=$(OBJ_DIR)/%.o)
 
-# Rules
 all: $(LIBFT) $(NAME)
 
 $(LIBFT):
